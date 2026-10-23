@@ -30,13 +30,39 @@ export function initSmoothScroll() {
 }
 
 export function scrollToTarget(target) {
-  if (lenisInstance) {
-    lenisInstance.scrollTo(target, { duration: 1.2 });
-  } else {
+  try {
+    if (typeof target === 'number') {
+      if (lenisInstance) {
+        lenisInstance.scrollTo(target, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: target, behavior: 'smooth' });
+      }
+      return;
+    }
+
+    let el = null;
+    if (typeof target === 'string') {
+      el = document.querySelector(target);
+    } else if (target?.current) {
+      el = target.current;
+    } else if (target instanceof Element) {
+      el = target;
+    }
+
+    if (el) {
+      if (lenisInstance) {
+        lenisInstance.scrollTo(el, { duration: 1.2, offset: -60 });
+      } else if (el.scrollIntoView) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        const top = el.getBoundingClientRect().top + window.pageYOffset - 60;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }
+  } catch (err) {
+    console.warn("Scroll fallback:", err);
     if (typeof target === 'number') {
       window.scrollTo({ top: target, behavior: 'smooth' });
-    } else if (target?.scrollIntoView) {
-      target.scrollIntoView({ behavior: 'smooth' });
     }
   }
 }

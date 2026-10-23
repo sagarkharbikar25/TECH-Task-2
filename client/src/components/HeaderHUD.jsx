@@ -10,6 +10,7 @@ export function HeaderHUD({
   onScrollToShowcase,
   onScrollToBento,
   onOpenRegister,
+  onReset,
 }) {
   const isAutoRotating = useSceneStore((state) => state.isAutoRotating);
   const toggleAutoRotate = useSceneStore((state) => state.toggleAutoRotate);
@@ -20,7 +21,11 @@ export function HeaderHUD({
   const handleReset = (e) => {
     e.stopPropagation();
     sound.playReset();
-    resetView();
+    if (onReset) {
+      onReset();
+    } else {
+      resetView();
+    }
   };
 
   const handleToggleAutoRotate = (e) => {
@@ -65,7 +70,7 @@ export function HeaderHUD({
         <TechfestLogo size={34} showText={true} />
       </div>
 
-      {/* 2. Unified Centered Section Navigation (Clean & uncluttered) */}
+      {/* 2. Unified Centered Section Navigation */}
       <nav
         aria-label="Festival Sections"
         className="header-nav-pills"

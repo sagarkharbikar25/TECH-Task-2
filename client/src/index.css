@@ -2,7 +2,7 @@
 
 /* Full bleed reset with smooth vertical scroll */
 html {
-  scroll-behavior: initial;
+  scroll-behavior: smooth;
 }
 
 html,
@@ -12,6 +12,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  overflow-y: auto !important;
   background-color: var(--bg-night);
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -21,6 +22,7 @@ body {
   width: 100%;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 
 /* Bento hover spotlight trigger */

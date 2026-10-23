@@ -66,15 +66,11 @@ export function App() {
   };
 
   const scrollTo3DShowcase = () => {
-    if (showcaseRef.current) {
-      scrollToTarget(showcaseRef.current);
-    }
+    scrollToTarget(showcaseRef.current || '#showcase-section');
   };
 
   const scrollToBento = () => {
-    if (bentoRef.current) {
-      scrollToTarget(bentoRef.current);
-    }
+    scrollToTarget(bentoRef.current || '#bento-section');
   };
 
   if (!hasWebGL) {
@@ -110,6 +106,10 @@ export function App() {
           sound.playHotspotClick();
           setIsRegisterOpen(true);
         }}
+        onReset={() => {
+          scrollTo3DShowcase();
+          useSceneStore.getState().resetView();
+        }}
       />
 
       {/* 3. Full-Viewport Hero Section with 3D Quantum Canvas */}
@@ -122,6 +122,7 @@ export function App() {
       {/* 4. Interactive 3D Cyborg Arm Showcase */}
       <section
         ref={showcaseRef}
+        id="showcase-section"
         style={{
           position: 'relative',
           width: '100%',
@@ -183,7 +184,7 @@ export function App() {
       />
 
       {/* 6. Asymmetrical Bento Grid Portfolio */}
-      <div ref={bentoRef}>
+      <div ref={bentoRef} id="bento-section">
         <BentoGrid
           onSelectCard={(track) => {
             setSelectedTrack(track);
