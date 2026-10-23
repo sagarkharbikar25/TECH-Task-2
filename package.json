@@ -1,0 +1,32 @@
+{
+  "name": "techfest-ca-3d-showcase",
+  "version": "1.0.0",
+  "description": "Interactive 3D Cyborg Showcase for Techfest CA Program Task 2",
+  "type": "module",
+  "main": "api/index.js",
+  "scripts": {
+    "dev": "concurrently -n \"API,VITE\" -c \"magenta,cyan\" \"node server.js\" \"npm run dev --prefix client\"",
+    "server": "node server.js",
+    "client": "npm run dev --prefix client",
+    "build": "cd client && npm install && npm run build",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "keywords": [
+    "threejs",
+    "react-three-fiber",
+    "techfest",
+    "3d",
+    "showcase",
+    "cyborg"
+  ],
+  "author": "Techfest CA Participant",
+  "license": "MIT"
+}
