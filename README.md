@@ -19,7 +19,7 @@
 ---
 
 ## 🚀 Live Deployment
-- **Target URL:** [techfest-ca-3d-showcase.vercel.app](https://techfest-ca-3d-showcase.vercel.app)
+- **Live Website:** [tech-task-2.vercel.app](https://tech-task-2.vercel.app)
 - **GitHub Repository:** [github.com/sagarkharbikar25/TECH-Task-2](https://github.com/sagarkharbikar25/TECH-Task-2)
 - **Local Dev Endpoints:**
   - Client Application: `http://localhost:5180`
