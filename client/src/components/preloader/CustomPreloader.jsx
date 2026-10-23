@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { Cpu, ShieldCheck } from 'lucide-react';
+import { Cpu } from 'lucide-react';
 import { sound } from '../../lib/audio';
 
 const GLYPHS = "!<>-_\\/[]{}—=+*^?#________010101XYZ";
@@ -46,13 +46,23 @@ export function CustomPreloader({ onComplete }) {
 
       const tl = gsap.timeline({
         onComplete: () => {
+          // Instantly release pointer-events so buttons underneath are clickable
+          if (containerRef.current) {
+            containerRef.current.style.pointerEvents = 'none';
+          }
           sound.playReset();
+
           // GSAP clip-path polygon curtain reveal exit animation
           gsap.to(containerRef.current, {
             clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-            duration: 1.1,
+            opacity: 0,
+            duration: 0.8,
             ease: "power4.inOut",
             onComplete: () => {
+              if (containerRef.current) {
+                containerRef.current.style.display = 'none';
+                containerRef.current.style.pointerEvents = 'none';
+              }
               if (onComplete) onComplete();
             },
           });
@@ -61,7 +71,7 @@ export function CustomPreloader({ onComplete }) {
 
       tl.to(state, {
         value: 100,
-        duration: 2.2,
+        duration: 2.0,
         ease: "power2.inOut",
         onUpdate: () => {
           const currentVal = Math.round(state.value);
@@ -78,9 +88,19 @@ export function CustomPreloader({ onComplete }) {
     return () => ctx.revert();
   }, [onComplete]);
 
+  // Click preloader to immediately skip
+  const handleSkip = () => {
+    if (containerRef.current) {
+      containerRef.current.style.pointerEvents = 'none';
+      containerRef.current.style.display = 'none';
+    }
+    if (onComplete) onComplete();
+  };
+
   return (
     <div
       ref={containerRef}
+      onClick={handleSkip}
       style={{
         position: 'fixed',
         inset: 0,
@@ -93,11 +113,12 @@ export function CustomPreloader({ onComplete }) {
         padding: '36px',
         userSelect: 'none',
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+        pointerEvents: percent >= 100 ? 'none' : 'auto',
       }}
     >
       {/* Background Cyber Grid */}
-      <div className="cyber-grid" style={{ opacity: 0.15 }} />
-      <div className="cyber-vignette" />
+      <div className="cyber-grid" style={{ opacity: 0.15, pointerEvents: 'none' }} />
+      <div className="cyber-vignette" style={{ pointerEvents: 'none' }} />
 
       {/* Top Telemetry Header */}
       <div
@@ -110,6 +131,7 @@ export function CustomPreloader({ onComplete }) {
           color: '#94A3B8',
           letterSpacing: '0.15em',
           zIndex: 10,
+          pointerEvents: 'none',
         }}
       >
         <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -135,6 +157,7 @@ export function CustomPreloader({ onComplete }) {
           alignItems: 'center',
           justifyContent: 'center',
           zIndex: 10,
+          pointerEvents: 'none',
         }}
       >
         <span
@@ -170,7 +193,7 @@ export function CustomPreloader({ onComplete }) {
       </div>
 
       {/* Bottom Diagnostics Progress Bar */}
-      <div style={{ width: '100%', zIndex: 10, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <div style={{ width: '100%', zIndex: 10, display: 'flex', flexDirection: 'column', gap: '10px', pointerEvents: 'none' }}>
         <div
           style={{
             display: 'flex',

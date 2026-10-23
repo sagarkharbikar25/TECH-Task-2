@@ -152,6 +152,9 @@ export function HeroSection({ onExplore, onRegister, onInspect3D }) {
             justifyContent: 'center',
             gap: '14px',
             marginTop: '12px',
+            position: 'relative',
+            zIndex: 50,
+            pointerEvents: 'auto',
           }}
         >
           <button
@@ -160,7 +163,7 @@ export function HeroSection({ onExplore, onRegister, onInspect3D }) {
               onExplore();
             }}
             className="btn-cyber btn-cyber-primary"
-            style={{ padding: '12px 28px', fontSize: '0.85rem' }}
+            style={{ padding: '12px 28px', fontSize: '0.85rem', pointerEvents: 'auto', cursor: 'pointer' }}
           >
             <Compass size={16} />
             <span>EXPLORE MATRIX</span>
@@ -177,6 +180,8 @@ export function HeroSection({ onExplore, onRegister, onInspect3D }) {
               fontSize: '0.85rem',
               borderColor: 'rgba(0, 240, 255, 0.4)',
               color: '#00F0FF',
+              pointerEvents: 'auto',
+              cursor: 'pointer',
             }}
           >
             <span>INSPECT 3D CYBORG ARM</span>
@@ -188,7 +193,7 @@ export function HeroSection({ onExplore, onRegister, onInspect3D }) {
               onRegister();
             }}
             className="btn-cyber"
-            style={{ padding: '12px 24px', fontSize: '0.85rem' }}
+            style={{ padding: '12px 24px', fontSize: '0.85rem', pointerEvents: 'auto', cursor: 'pointer' }}
           >
             <span>REGISTER PASS</span>
             <ArrowRight size={15} />

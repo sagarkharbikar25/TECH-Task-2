@@ -48,9 +48,15 @@ export function App() {
       setModelData(data);
     });
 
+    // Preloader safety timeout: guarantee clicks are never blocked
+    const timer = setTimeout(() => {
+      setIsPreloaded(true);
+    }, 3200);
+
     // Initialize Lenis virtual smooth scroll
     const lenis = initSmoothScroll();
     return () => {
+      clearTimeout(timer);
       if (lenis) lenis.destroy();
     };
   }, [setModelData]);

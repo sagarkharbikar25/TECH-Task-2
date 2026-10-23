@@ -45,7 +45,7 @@ export function HeaderHUD({
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 100,
+        zIndex: 1000,
         padding: '12px 24px',
         display: 'flex',
         alignItems: 'center',
@@ -53,6 +53,7 @@ export function HeaderHUD({
         background: 'rgba(0, 15, 8, 0.78)',
         backdropFilter: 'blur(16px)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+        pointerEvents: 'auto',
       }}
     >
       {/* 1. Official Brand Identity with Vector Logo (Click to scroll to top) */}
