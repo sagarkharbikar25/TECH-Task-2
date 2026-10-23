@@ -39,6 +39,12 @@ body {
   }
 }
 
+@media (max-width: 900px) {
+  .header-nav-pills {
+    display: none !important;
+  }
+}
+
 @media (max-width: 640px) {
   .hud-btn-label {
     display: none;

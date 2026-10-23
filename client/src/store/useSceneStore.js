@@ -12,6 +12,7 @@ export const useSceneStore = create((set, get) => ({
     clearcoat: 0.8,
   },
   isAutoRotating: true,
+  userAutoRotatePreference: true, // Tracks explicit user intent
   cameraTarget: [0, 0, 0],
   cameraPosition: [3.2, 1.8, 4.5],
   overviewPosition: [3.2, 1.8, 4.5],
@@ -31,10 +32,11 @@ export const useSceneStore = create((set, get) => ({
 
   setSelectedHotspot: (hotspot) => {
     if (!hotspot) {
-      set({
+      set((state) => ({
         selectedHotspot: null,
         isMobileDrawerOpen: false,
-      });
+        isAutoRotating: state.userAutoRotatePreference,
+      }));
       return;
     }
 
@@ -54,7 +56,13 @@ export const useSceneStore = create((set, get) => ({
   },
 
   toggleAutoRotate: () => {
-    set((state) => ({ isAutoRotating: !state.isAutoRotating }));
+    set((state) => {
+      const nextVal = !state.isAutoRotating;
+      return {
+        isAutoRotating: nextVal,
+        userAutoRotatePreference: nextVal,
+      };
+    });
   },
 
   toggleWireframe: () => {
@@ -78,9 +86,9 @@ export const useSceneStore = create((set, get) => ({
       selectedHotspot: null,
       isMobileDrawerOpen: false,
       isResettingCamera: true,
-      isAutoRotating: true
+      isAutoRotating: true,
+      userAutoRotatePreference: true,
     });
-    // Turn off resetting flag after short animation window
     setTimeout(() => {
       set({ isResettingCamera: false });
     }, 1200);

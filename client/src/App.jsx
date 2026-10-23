@@ -3,7 +3,6 @@ import { CustomPreloader } from './components/preloader/CustomPreloader';
 import { HeroSection } from './components/sections/HeroSection';
 import { FlagshipPinning } from './components/sections/FlagshipPinning';
 import { BentoGrid } from './components/sections/BentoGrid';
-import { AboutSection } from './components/sections/AboutSection';
 import { RegistrationPortal } from './components/sections/RegistrationPortal';
 import { Scene } from './components/Scene';
 import { HeaderHUD } from './components/HeaderHUD';
@@ -40,7 +39,6 @@ export function App() {
 
   const showcaseRef = useRef(null);
   const bentoRef = useRef(null);
-  const aboutRef = useRef(null);
 
   useEffect(() => {
     setHasWebGL(checkWebGL());
@@ -57,6 +55,10 @@ export function App() {
     };
   }, [setModelData]);
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const scrollTo3DShowcase = () => {
     if (showcaseRef.current) {
       showcaseRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -66,12 +68,6 @@ export function App() {
   const scrollToBento = () => {
     if (bentoRef.current) {
       bentoRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const scrollToAbout = () => {
-    if (aboutRef.current) {
-      aboutRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -98,75 +94,26 @@ export function App() {
       <div className="cyber-grid" />
       <div className="cyber-vignette" />
 
-      {/* Persistent Navigation HUD */}
-      <HeaderHUD onOpenCredits={() => setIsSpecsOpen(true)} />
-
-      {/* Floating Section Quick-Jump Pills */}
-      <nav
-        aria-label="Section Quick Links"
-        style={{
-          position: 'fixed',
-          top: '20px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 30,
-          display: 'flex',
-          gap: '8px',
-          background: 'rgba(0, 15, 8, 0.75)',
-          padding: '6px 12px',
-          borderRadius: '30px',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          backdropFilter: 'blur(12px)',
+      {/* 2. Unified Header HUD (No Overlapping Elements) */}
+      <HeaderHUD
+        onOpenCredits={() => setIsSpecsOpen(true)}
+        onScrollToTop={scrollToTop}
+        onScrollToShowcase={scrollTo3DShowcase}
+        onScrollToBento={scrollToBento}
+        onOpenRegister={() => {
+          sound.playHotspotClick();
+          setIsRegisterOpen(true);
         }}
-      >
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="btn-cyber"
-          style={{ padding: '4px 12px', fontSize: '0.72rem', borderRadius: '20px' }}
-        >
-          CORE
-        </button>
-        <button
-          onClick={scrollTo3DShowcase}
-          className="btn-cyber"
-          style={{ padding: '4px 12px', fontSize: '0.72rem', borderRadius: '20px', color: '#FB3640' }}
-        >
-          3D CYBORG RIG
-        </button>
-        <button
-          onClick={scrollToBento}
-          className="btn-cyber"
-          style={{ padding: '4px 12px', fontSize: '0.72rem', borderRadius: '20px' }}
-        >
-          ARENAS
-        </button>
-        <button
-          onClick={scrollToAbout}
-          className="btn-cyber"
-          style={{ padding: '4px 12px', fontSize: '0.72rem', borderRadius: '20px', color: '#00F0FF' }}
-        >
-          ABOUT
-        </button>
-        <button
-          onClick={() => {
-            sound.playHotspotClick();
-            setIsRegisterOpen(true);
-          }}
-          className="btn-cyber btn-cyber-primary"
-          style={{ padding: '4px 12px', fontSize: '0.72rem', borderRadius: '20px' }}
-        >
-          PASS
-        </button>
-      </nav>
+      />
 
-      {/* 2. Full-Viewport Hero Section with 3D Quantum Canvas */}
+      {/* 3. Full-Viewport Hero Section with 3D Quantum Canvas */}
       <HeroSection
         onExplore={scrollToBento}
         onRegister={() => setIsRegisterOpen(true)}
         onInspect3D={scrollTo3DShowcase}
       />
 
-      {/* 3. Interactive 3D Cyborg Arm Showcase */}
+      {/* 4. Interactive 3D Cyborg Arm Showcase */}
       <section
         ref={showcaseRef}
         style={{
@@ -183,7 +130,7 @@ export function App() {
         <div
           style={{
             position: 'absolute',
-            top: '24px',
+            top: '76px',
             left: '24px',
             zIndex: 10,
             pointerEvents: 'none',
@@ -221,7 +168,7 @@ export function App() {
         <HotspotCard />
       </section>
 
-      {/* 4. Scroll-Triggered Horizontal Pinning Showcase (Robowars, Drones, Humanoid Conclave) */}
+      {/* 5. Scroll-Triggered Horizontal Pinning Showcase (Robowars, Drones, Humanoid Conclave) */}
       <FlagshipPinning
         onSelectEvent={(item) => {
           setSelectedTrack(item.title);
@@ -229,7 +176,7 @@ export function App() {
         }}
       />
 
-      {/* 5. Asymmetrical Bento Grid Portfolio */}
+      {/* 6. Asymmetrical Bento Grid Portfolio */}
       <div ref={bentoRef}>
         <BentoGrid
           onSelectCard={(track) => {
@@ -237,11 +184,6 @@ export function App() {
             setIsRegisterOpen(true);
           }}
         />
-      </div>
-
-      {/* 6. About Section: Genesis, Vision, & Legacy Impact */}
-      <div ref={aboutRef}>
-        <AboutSection />
       </div>
 
       {/* Footer */}

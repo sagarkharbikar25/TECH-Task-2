@@ -7,38 +7,43 @@ export function CameraRig({ controlsRef }) {
   const { camera } = useThree();
   const selectedHotspot = useSceneStore((state) => state.selectedHotspot);
   const isResettingCamera = useSceneStore((state) => state.isResettingCamera);
-  const isAutoRotating = useSceneStore((state) => state.isAutoRotating);
   const setAutoRotate = useSceneStore((state) => state.setAutoRotate);
 
   const idleTimerRef = useRef(null);
   const targetCamPos = useRef(new THREE.Vector3(3.2, 1.8, 4.5));
   const targetLookAt = useRef(new THREE.Vector3(0, 0.4, 0));
 
-  // Handle user interaction timeout to resume auto-rotate
+  // Bind drag pause/resume exclusively to OrbitControls interactions (NOT global window clicks)
   useEffect(() => {
-    const handleUserInteraction = () => {
-      // Pause auto-rotation when user moves camera manually
-      if (isAutoRotating) {
-        setAutoRotate(false);
-      }
+    const controls = controlsRef.current;
+    if (!controls) return;
+
+    const handleControlsStart = () => {
+      // Pause while dragging the 3D model
+      setAutoRotate(false);
+      clearTimeout(idleTimerRef.current);
+    };
+
+    const handleControlsEnd = () => {
       clearTimeout(idleTimerRef.current);
       idleTimerRef.current = setTimeout(() => {
-        // Only resume if no hotspot is actively inspected
-        if (!useSceneStore.getState().selectedHotspot) {
+        const store = useSceneStore.getState();
+        // Only resume if user wants auto-rotate AND no hotspot is actively inspected
+        if (store.userAutoRotatePreference && !store.selectedHotspot) {
           setAutoRotate(true);
         }
-      }, 3500);
+      }, 3000);
     };
 
-    window.addEventListener('pointerdown', handleUserInteraction);
-    window.addEventListener('wheel', handleUserInteraction);
+    controls.addEventListener('start', handleControlsStart);
+    controls.addEventListener('end', handleControlsEnd);
 
     return () => {
-      window.removeEventListener('pointerdown', handleUserInteraction);
-      window.removeEventListener('wheel', handleUserInteraction);
+      controls.removeEventListener('start', handleControlsStart);
+      controls.removeEventListener('end', handleControlsEnd);
       clearTimeout(idleTimerRef.current);
     };
-  }, [isAutoRotating, setAutoRotate]);
+  }, [controlsRef, setAutoRotate]);
 
   // Update target positions based on selection or reset
   useEffect(() => {
