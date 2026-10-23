@@ -12,7 +12,7 @@ import { SpecsModal } from './components/SpecsModal';
 import { WebGLFallback } from './components/WebGLFallback';
 import { useSceneStore } from './store/useSceneStore';
 import { fetchModels } from './lib/api';
-import { initSmoothScroll } from './lib/lenis';
+import { initSmoothScroll, scrollToTarget } from './lib/lenis';
 import { sound } from './lib/audio';
 import './styles/theme.css';
 
@@ -56,18 +56,18 @@ export function App() {
   }, [setModelData]);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollToTarget(0);
   };
 
   const scrollTo3DShowcase = () => {
     if (showcaseRef.current) {
-      showcaseRef.current.scrollIntoView({ behavior: 'smooth' });
+      scrollToTarget(showcaseRef.current);
     }
   };
 
   const scrollToBento = () => {
     if (bentoRef.current) {
-      bentoRef.current.scrollIntoView({ behavior: 'smooth' });
+      scrollToTarget(bentoRef.current);
     }
   };
 

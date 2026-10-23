@@ -28,3 +28,15 @@ export function initSmoothScroll() {
 
   return lenisInstance;
 }
+
+export function scrollToTarget(target) {
+  if (lenisInstance) {
+    lenisInstance.scrollTo(target, { duration: 1.2 });
+  } else {
+    if (typeof target === 'number') {
+      window.scrollTo({ top: target, behavior: 'smooth' });
+    } else if (target?.scrollIntoView) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}

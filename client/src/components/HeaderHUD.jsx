@@ -50,20 +50,21 @@ export function HeaderHUD({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        background: 'rgba(0, 15, 8, 0.75)',
+        background: 'rgba(0, 15, 8, 0.78)',
         backdropFilter: 'blur(16px)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
       }}
     >
-      {/* 1. Official Brand Identity with Vector Logo */}
+      {/* 1. Official Brand Identity with Vector Logo (Click to scroll to top) */}
       <div
         onClick={onScrollToTop}
+        title="Scroll to Top"
         style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
       >
         <TechfestLogo size={34} showText={true} />
       </div>
 
-      {/* 2. Unified Centered Section Navigation (No Overlap) */}
+      {/* 2. Unified Centered Section Navigation (Clean & uncluttered) */}
       <nav
         aria-label="Festival Sections"
         className="header-nav-pills"
@@ -77,13 +78,6 @@ export function HeaderHUD({
           border: '1px solid rgba(255, 255, 255, 0.06)',
         }}
       >
-        <button
-          onClick={onScrollToTop}
-          className="btn-cyber"
-          style={{ padding: '6px 14px', fontSize: '0.72rem', borderRadius: '20px' }}
-        >
-          CORE
-        </button>
         <button
           onClick={onScrollToShowcase}
           className="btn-cyber"
