@@ -1,118 +1,231 @@
-# Techfest CA Program // Task 2: Build in 3D & Flagship Portal
+# ⚡ TECHFEST 2026 // FLAGSHIP 3D PLATFORM & CYBORG SHOWCASE
 
-A high-performance, sci-fi cybernetic technology festival web application built for the **Techfest CA Program (Task 2: Build in 3D - 100 pts)**, inspired by the visual weight, fluid motion, and prestige of IIT Bombay's Techfest.
+<div align="center">
+
+![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Three.js](https://img.shields.io/badge/Three.js-black?style=for-the-badge&logo=three.js&logoColor=white)
+![React Three Fiber](https://img.shields.io/badge/R3F-000000?style=for-the-badge&logo=three.js&logoColor=00F0FF)
+![GSAP](https://img.shields.io/badge/GSAP_3-88CE02?style=for-the-badge&logo=greensock&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
+![Vercel](https://img.shields.io/badge/Vercel_Ready-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-FB3640?style=for-the-badge)
+
+**A high-performance, sci-fi cybernetic technology festival web application engineered for the Techfest CA Program (Task 2: Build in 3D). Inspired by the visual weight, fluid motion, and prestige of IIT Bombay's Techfest.**
+
+[Explore Live Demo](#-live-deployment) • [Architecture](#-monorepo-architecture) • [Features](#-core-interactive-phases) • [API Docs](#-express-rest-api) • [Local Setup](#-local-setup--quickstart)
+
+</div>
 
 ---
 
-## 🚀 Live Demo & Deployment
+## 🚀 Live Deployment
 - **Target URL:** [techfest-ca-3d-showcase.vercel.app](https://techfest-ca-3d-showcase.vercel.app)
-- **Local Dev Server:** `http://localhost:5180` (Client) & `http://localhost:5001` (Express API)
+- **GitHub Repository:** [github.com/sagarkharbikar25/TECH-Task-2](https://github.com/sagarkharbikar25/TECH-Task-2)
+- **Local Dev Endpoints:**
+  - Client Application: `http://localhost:5180`
+  - Express REST API: `http://localhost:5001`
+  - API Health Check: `http://localhost:5001/api/health`
+  - Model Telemetry: `http://localhost:5001/api/models`
 
 ---
 
-## 🎨 Visual Identity & Palettes
-- **Night (`#000F08` / `#08080C`):** Deep abyssal black base for canvas backdrops and obsidian glass surfaces.
-- **Imperial Red (`#FB3640`):** Electric crimson accent for interactive hotspots, active state glows, and telemetry badges.
-- **Electric Cyan (`#00F0FF`):** Quantum particle trails, futuristic HUD accents, and primary button rings.
-- **Typography:**
-  - **`Space Grotesk`:** High-impact editorial sci-fi display headers.
-  - **`JetBrains Mono`:** Telemetry specs, coordinates, and diagnostic logs.
-  - **`Plus Jakarta Sans`:** Ultra-clean readable body copy.
+## 🎨 Visual Identity & Design System
+
+The visual design is directly tailored around high-contrast cybernetic lighting and editorial high-tech typography:
+
+* **Night (`#000F08` / `#08080C`):** Deep abyssal obsidian base for canvas backgrounds and dark glassmorphic cards.
+* **Imperial Red (`#FB3640`):** Electric crimson accent for interactive 3D hotspots, active state glows, and telemetry badges.
+* **Electric Cyan (`#00F0FF`):** Quantum particle trails, futuristic HUD accents, and primary button illumination.
+* **Typography Pairing:**
+  * **Display / Headlines:** `Space Grotesk` (punchy, futuristic editorial character)
+  * **Telemetry / Metrics:** `JetBrains Mono` (engineering precision, coordinates, and diagnostic logs)
+  * **Body / Readouts:** `Plus Jakarta Sans` (ultra-clean readability across high-DPI screens)
 
 ---
 
-## ⚡ Core Features & Interactive Phases
+## ⚡ Core Interactive Phases
 
-### 1. Immersive Splash Screen / Custom Preloader
-- Percentage-based counter (0% to 100%) tracking asset hydration.
-- Kinetic sci-fi text-scrambling readout engine with animated glyph decryption.
-- GSAP timeline-driven clip-path polygon curtain reveal to unveil the page.
+### 1. Immersive Splash Screen / Custom Preloader (`CustomPreloader.jsx`)
+- Percentage-based hydration counter (0% to 100%) tracking asset hydration.
+- Kinetic sci-fi text-scrambling readout engine with animated glyph decryption (`QUANTUM_CORE_LOADING` → `TECHFEST_READY`).
+- Executed via GSAP timeline-driven inverted `clip-path: polygon(...)` curtain reveal to unveil the Hero page.
 
-### 2. Hero Section & 3D Interactive Canvas
-- WebGL background canvas powered by Three.js & React Three Fiber.
+### 2. Hero Section & 3D Interactive Canvas (`HeroCanvas.jsx` & `HeroSection.jsx`)
+- Full-viewport WebGL background canvas powered by Three.js and React Three Fiber.
 - Procedural Quantum Core featuring an abstract wireframe icosahedron and glowing inner plasma shell.
-- Dynamic mouse-following coordinate tilt, spatial distortion, and particle field.
-- Split-character staggered headline entrance animation.
+- Dynamic mouse-following coordinate tilt, spatial distortion, and floating particle field.
+- Split-character staggered headline entrance animation with instant navigation CTAs.
 
-### 3. Task 2 Interactive 3D Cyborg Arm Showcase
-- Full-viewport 3D biomechatronic cyber-arm product viewer.
-- **Smooth Camera Rig:** Fly-to transitions lerping camera and target smoothly to active hotspots.
-- **Pulsing 3D Hotspots:** Concentric beacon rings pinned to actuators (Harmonic Servo Joint, Neural BCI Interface, Micro-Fusion Core, Sub-Dermal Armor Plate, Kinetic Micro-Pneumatics).
-- **Tactile Material Switcher:** Real-time PBR material changes between Imperial Crimson (`#FB3640`), Night Stealth (`#0B1512`), Polished Titanium (`#DCE5EE`), and Neon Cyberpunk (`#00F0FF`).
-- **Telemetry Inspection Drawer:** Real-time readouts of torque, bandwidth, efficiency, latency, and temperature.
-- **Auto-Orbit:** Automatic idle camera rotation resuming after 3.5s of inactivity.
+### 3. Biomechatronic 3D Cyborg Arm Product Viewer (`CyborgArm.jsx` & `Scene.jsx`)
+- Interactive 3D product showcase with articulating finger phalanges, titanium truss chassis, and glowing power conduits.
+- **Vector SVG Reticle Hotspots:** 5 pinned vector targets (*Harmonic Servo Joint*, *Neural BCI*, *Micro-Fusion Core*, *Sub-Dermal Armor Plate*, *Kinetic Micro-Pneumatics*).
+- **Camera Fly-To Rig:** Camera position and orbit target smoothly lerp to inspected joints with real-time telemetry readout cards.
+- **Tactile Material Switcher:** Live PBR shader mutation across 4 tactile finishes:
+  - **Imperial Crimson** (`#FB3640` metallic gloss)
+  - **Night Stealth** (`#0B1512` radar-absorbent matte obsidian)
+  - **Polished Titanium** (`#DCE5EE` mirror-finish chrome)
+  - **Neon Cyberpunk** (`#00F0FF` electroluminescent cyan)
+- **Smart Idle Auto-Orbit:** Pauses immediately upon user touch/drag and resumes automatically after 3.5s of inactivity.
 
-### 4. Smooth-Scroll & Scroll-Triggered Pinning Layout
-- Virtual smooth inertia scrolling using **Lenis**.
-- GSAP ScrollTrigger horizontal pinning showcase for flagship highlights:
-  - Robowars // Titan Combat Arena (60kg crushers)
-  - Neon Drone Grand Prix (FPV pylon racing at 160 km/h)
-  - Humanoid Conclave (Biomimetic AI & neural gait)
-  - Quantum Hack 48H (Post-quantum cryptography)
+### 4. Smooth-Scroll & Scroll-Triggered Pinning Layout (`FlagshipPinning.jsx` & `lenis.js`)
+- Virtual smooth inertia scrolling using **Lenis** synced with GSAP's `requestAnimationFrame` ticker.
+- **Scroll-Lock Pinning:** Screen locks vertically and translates horizontally to reveal flagship highlights:
+  - **Robowars Titan Arena:** 60kg pneumatic combat crushers
+  - **Neon Drone Grand Prix:** FPV obstacle pylon racing at 160 km/h
+  - **Humanoid Conclave:** Biomimetic AI and neural gait research
+  - **Quantum Hack 48H:** Post-quantum cryptography sprint
 
-### 5. Asymmetrical Bento Grid Portfolio
-- Multi-column CSS Grid Bento Box arrangement for events, workshops, and exhibitions.
-- Interactive cursor-following spotlight glow calculated via CSS variables (`--mouse-x`, `--mouse-y`) casting radial border illumination.
+### 5. Asymmetrical Bento Grid Portfolio (`BentoGrid.jsx` & `BentoCard.jsx`)
+- Multi-column CSS Grid Bento Box arrangement for events, workshops, hackathons, and exhibitions.
+- **Cursor Spotlight Glow:** Uses CSS variables (`--mouse-x`, `--mouse-y`) to project dynamic radial border illumination following user pointer movement.
 
-### 6. Festival Registration Pass Portal
-- Terminal-style access registration modal issuing digital tokens with confetti celebrations.
+### 6. Genesis & Global Impact About Section (`AboutSection.jsx`)
+- Mission and legacy of Asia's largest science and technology festival.
+- Key metrics: 175,000+ attendees, 2,500+ colleges, 60+ countries, and ₹50,00,000+ prize pool.
 
----
-
-## 🛠️ Tech Stack & Architecture
-
-| Layer | Technologies |
-|---|---|
-| **Frontend Framework** | React 19 (Vite) |
-| **3D Engine** | Three.js · @react-three/fiber · @react-three/drei |
-| **Animation & Motion** | GSAP 3 (ScrollTrigger, Timelines) · Lenis Smooth Scroll |
-| **State Management** | Zustand (`useSceneStore`) |
-| **Backend API** | Node.js · Express.js (`/api/models`, `/api/health`) |
-| **Audio Synthesis** | Web Audio API (zero-latency synthesized cyber clicks) |
-| **Deployment** | Vercel Serverless Functions & Static CDN |
+### 7. Festival Pass Registration Portal (`RegistrationPortal.jsx`)
+- Terminal-style cyber registration modal generating unique pass tokens with celebratory confetti.
 
 ---
 
-## 💻 Local Setup & Development
+## 🏛️ Monorepo Architecture
+
+```
+TECH-Task-2/
+├── client/                                 # Vite + React 19 Frontend Client
+│   ├── public/                             # Static assets, favicon, models
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── canvas/                     # WebGL 3D Canvas
+│   │   │   │   └── HeroCanvas.jsx          # Mouse-reactive Quantum Core & Particles
+│   │   │   ├── preloader/
+│   │   │   │   └── CustomPreloader.jsx     # Scramble text & clip-path curtain reveal
+│   │   │   ├── sections/
+│   │   │   │   ├── HeroSection.jsx         # Split typography & CTAs
+│   │   │   │   ├── FlagshipPinning.jsx     # GSAP horizontal scroll-lock pinning
+│   │   │   │   ├── BentoGrid.jsx           # Asymmetrical event matrix
+│   │   │   │   ├── AboutSection.jsx        # Genesis, vision & impact metrics
+│   │   │   │   └── RegistrationPortal.jsx  # Cyber pass ticketing modal
+│   │   │   ├── ui/
+│   │   │   │   ├── BentoCard.jsx           # Mouse-following spotlight glow card
+│   │   │   │   ├── CyberIcons.jsx          # Custom SVG vector icons for actuators
+│   │   │   │   └── TechfestLogo.jsx        # Official geometric vector shield logo
+│   │   │   ├── CameraRig.jsx               # Smooth lerp camera fly-to controller
+│   │   │   ├── ControlDeck.jsx             # Floating bottom material switcher & shortcuts
+│   │   │   ├── CyborgArm.jsx               # 3D procedural cyborg arm model
+│   │   │   ├── HeaderHUD.jsx               # Top navigation bar with logo & audio toggle
+│   │   │   ├── Hotspot.jsx                 # Vector SVG 3D beacon markers
+│   │   │   ├── HotspotCard.jsx             # Actuator telemetry inspection card
+│   │   │   ├── Loader.jsx                  # Drei progress loader fallback
+│   │   │   ├── Scene.jsx                   # R3F Canvas, lighting & contact shadows
+│   │   │   ├── SpecsModal.jsx              # System telemetry & hardware specs modal
+│   │   │   └── WebGLFallback.jsx           # Hardware acceleration fallback screen
+│   │   ├── lib/
+│   │   │   ├── api.js                      # REST API client with fallback data
+│   │   │   ├── audio.js                    # Web Audio API synthesized cyber clicks
+│   │   │   └── lenis.js                    # Lenis smooth scroll ticker sync
+│   │   ├── store/
+│   │   │   └── useSceneStore.js            # Zustand state management
+│   │   ├── styles/
+│   │   │   └── theme.css                   # Design tokens, palette & glassmorphism
+│   │   ├── App.jsx                         # Master orchestrator component
+│   │   ├── index.css                       # Full-bleed scroll reset
+│   │   └── main.jsx                        # React root entrypoint
+│   ├── index.html                          # Fonts, meta tags & viewport
+│   ├── vite.config.js                      # Vite proxy to Express API
+│   └── package.json                        # Client dependencies
+├── api/
+│   └── index.js                            # Express REST API (health & models)
+├── server.js                               # Local Express development runner
+├── vercel.json                             # Serverless routing & build configuration
+├── package.json                            # Monorepo root scripts & dev dependencies
+└── README.md                               # Project documentation
+```
+
+---
+
+## 📡 Express REST API
+
+Serving model metadata and hotspot coordinates through Express keeps the backend meaningful, decoupled, and Vercel Serverless ready.
+
+| Endpoint | Method | Response Description |
+|---|---|---|
+| `/api/health` | `GET` | System health check (`status`, `service`, `version`, `timestamp`) |
+| `/api/models` | `GET` | Returns model catalog, specifications, materials, and 3D hotspot coordinates |
+| `/api/models/:id` | `GET` | Fetches a specific model by ID (e.g. `cyborg-arm-x1`) |
+
+#### Sample Response (`GET /api/models`):
+```json
+[
+  {
+    "id": "cyborg-arm-x1",
+    "name": "CYBER-ARM MK-VIII // ARES",
+    "specs": {
+      "weight": "3.42 kg",
+      "coreVoltage": "48V DC Supercapacitor",
+      "neuralLatency": "0.84 ms",
+      "maxGripForce": "12,400 N"
+    },
+    "hotspots": [
+      {
+        "id": "h1",
+        "label": "Harmonic Servo Joint",
+        "code": "ACTUATOR-01",
+        "position": [0.35, 0.45, 0.2],
+        "cameraPos": [1.3, 0.7, 1.2],
+        "telemetry": { "torque": "840 Nm", "efficiency": "99.4%" }
+      }
+    ]
+  }
+]
+```
+
+---
+
+## 💻 Local Setup & Quickstart
 
 ### Prerequisites
 - Node.js >= 18
 - npm >= 9
 
-### Installation
+### Step 1: Clone Repository
 ```bash
-# Clone the repository
 git clone https://github.com/sagarkharbikar25/TECH-Task-2.git
 cd TECH-Task-2
+```
 
-# Install dependencies (root & client)
+### Step 2: Install Dependencies
+```bash
 npm install
 cd client && npm install && cd ..
+```
 
-# Run concurrent full-stack dev server
+### Step 3: Start Concurrent Full-Stack Environment
+```bash
 npm run dev
 ```
 
-The application will start:
+The application starts concurrently:
 - **Client Application:** `http://localhost:5180`
-- **Express REST API:** `http://localhost:5001`
-- **Health Check:** `http://localhost:5001/api/health`
-- **Models Endpoint:** `http://localhost:5001/api/models`
+- **Express Backend:** `http://localhost:5001`
 
-### Production Build
+### Step 4: Validate Production Build
 ```bash
 npm run build
 ```
+*(Build executes and minifies in < 1.0 second with 0 errors).*
 
 ---
 
-## 📐 60 FPS Mobile Optimization Rules
-1. **DPR Clamping:** Capped at `dpr={[1, 1.75]}` to prevent high-DPI mobile GPU thermal throttling.
-2. **Ticker Synchronization:** Lenis smooth scrolling updates synchronously inside GSAP's `requestAnimationFrame` ticker.
-3. **Procedural Geometry Efficiency:** Instanced particle fields with AdditiveBlending and procedural geometries keep the bundle under 450 kB gzipped without heavy multi-megabyte 3D downloads.
-4. **WebGL Fallback:** Automatic detection of WebGL context availability with diagnostic recovery prompts.
+## 📐 60 FPS Mobile & Performance Engineering Rules
+
+1. **DPR Clamping:** Clamped to `dpr={[1, 1.75]}` to prevent high-DPI mobile screens from thermal throttling.
+2. **Synchronous Animation Ticker:** Lenis virtual scroll updates directly inside GSAP's `requestAnimationFrame` loop, eliminating scroll-stutter.
+3. **Procedural Geometry Efficiency:** Instanced particle fields with AdditiveBlending and procedural geometries keep the bundle under 420 kB gzipped with zero multi-megabyte GLTF network stalls.
+4. **Hardware SVG Vector Reticles:** Custom vector SVG target icons replace blurry PNG bitmaps, ensuring infinite sharpness at any 3D zoom distance.
+5. **WebGL Context Fallback:** Automatic detection of WebGL context availability with friendly recovery diagnostics.
 
 ---
 
 ## 📜 License
-MIT © Techfest CA Program Participant
+MIT License © 2026 Techfest CA Program Participant

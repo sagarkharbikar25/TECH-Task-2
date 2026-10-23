@@ -3,6 +3,7 @@ import { CustomPreloader } from './components/preloader/CustomPreloader';
 import { HeroSection } from './components/sections/HeroSection';
 import { FlagshipPinning } from './components/sections/FlagshipPinning';
 import { BentoGrid } from './components/sections/BentoGrid';
+import { AboutSection } from './components/sections/AboutSection';
 import { RegistrationPortal } from './components/sections/RegistrationPortal';
 import { Scene } from './components/Scene';
 import { HeaderHUD } from './components/HeaderHUD';
@@ -13,7 +14,6 @@ import { WebGLFallback } from './components/WebGLFallback';
 import { useSceneStore } from './store/useSceneStore';
 import { fetchModels } from './lib/api';
 import { initSmoothScroll } from './lib/lenis';
-import { Box, Layers, Ticket, Sparkles } from 'lucide-react';
 import { sound } from './lib/audio';
 import './styles/theme.css';
 
@@ -40,6 +40,7 @@ export function App() {
 
   const showcaseRef = useRef(null);
   const bentoRef = useRef(null);
+  const aboutRef = useRef(null);
 
   useEffect(() => {
     setHasWebGL(checkWebGL());
@@ -65,6 +66,12 @@ export function App() {
   const scrollToBento = () => {
     if (bentoRef.current) {
       bentoRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToAbout = () => {
+    if (aboutRef.current) {
+      aboutRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -132,6 +139,13 @@ export function App() {
           style={{ padding: '4px 12px', fontSize: '0.72rem', borderRadius: '20px' }}
         >
           ARENAS
+        </button>
+        <button
+          onClick={scrollToAbout}
+          className="btn-cyber"
+          style={{ padding: '4px 12px', fontSize: '0.72rem', borderRadius: '20px', color: '#00F0FF' }}
+        >
+          ABOUT
         </button>
         <button
           onClick={() => {
@@ -223,6 +237,11 @@ export function App() {
             setIsRegisterOpen(true);
           }}
         />
+      </div>
+
+      {/* 6. About Section: Genesis, Vision, & Legacy Impact */}
+      <div ref={aboutRef}>
+        <AboutSection />
       </div>
 
       {/* Footer */}
